@@ -52,49 +52,44 @@ body,
 /* ============================================================
    BODY & FOND
 ============================================================ */
+/* ============================================================
+  BODY & FOND
+============================================================ */
 body {
-    font-family: 'Nunito Sans', sans-serif;
-    color: #1a1a1a;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-    background-image: url("/assets/bg-home.jpg");
-
-    /*
-      FIX LIGNE FANTÔME — CAUSE PRINCIPALE :
-      background-attachment:fixed force le navigateur à créer une couche
-      de composition GPU séparée pour le body. Combiné au backdrop-filter
-      du header sticky et du nav-mobile fixed, le moteur de rendu crée
-      une "hairline" d'1px visible au scroll entre les couches composites.
-      On passe à "scroll" pour supprimer cette couche parasitaire.
-      L'effet de fond est préservé grâce au .background-overlay fixe.
-    */
-    background-attachment: scroll;
-    background-repeat: no-repeat;
+  font-family: 'Nunito Sans', sans-serif;
+  color: #1a1a1a;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-image: url("/assets/bg-home.jpg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
+/* ── Overlay jour ── */
 .background-overlay {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(
-        160deg,
-        rgba(10, 60, 20, 0.45) 0%,
-        rgba(5, 40, 15, 0.55) 50%,
-        rgba(0, 25, 10, 0.60) 100%
-    );
-    z-index: 0;
-    pointer-events: none;
-    /* FIX : force une couche composite propre pour l'overlay */
-    transform: translateZ(0);
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(10, 60, 20, 0.45) 0%,
+    rgba(5, 40, 15, 0.55) 50%,
+    rgba(0, 25, 10, 0.60) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
+/* ── Overlay nuit ── */
 [data-theme="dark"] .background-overlay {
-    background: linear-gradient(
-        160deg,
-        rgba(18, 14, 10, 0.88) 0%,
-        rgba(14, 10, 7,  0.92) 50%,
-        rgba(10,  7,  4, 0.95) 100%
-    );
+  background: linear-gradient(
+    160deg,
+    rgba(18, 14, 10, 0.88) 0%,
+    rgba(14, 10,  7, 0.92) 50%,
+    rgba(10,  7,  4, 0.95) 100%
+  );
 }
 
 /* ============================================================

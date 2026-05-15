@@ -93,11 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ── Fil d'Ariane ── */
     breadcrumb.innerHTML = `
-      <a href="/index.html">Accueil</a>
+      <a href="/">Accueil</a>
       <span class="breadcrumb-sep">›</span>
-      <a href="/05-pages/categories.html">Catégories</a>
-      <span class="breadcrumb-sep">›</span>
-      <a href="/05-pages/category/notions/index.html">${article.category}</a>
+      <a href="/pages/category-notions.html">${article.category}</a>
       <span class="breadcrumb-sep">›</span>
       <span class="breadcrumb-current">${article.shortTitle}</span>
     `;
