@@ -938,3 +938,37 @@ body {
     }
     .theme-toggle__label { display: none; }
 }
+
+/* ============================================================
+   FIX BUG LIGNE FIXE (STICKY HEADER + BACKDROP FILTER)
+============================================================ */
+
+/* Stabilise le rendu du header sticky */
+.header {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Empêche les artefacts liés au fond fixe */
+body {
+    background-attachment: scroll !important;
+}
+
+/* Évite les “hairlines” de rendu GPU */
+.header::before,
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    pointer-events: none;
+}
+
+/* Optionnel : masque la micro-ligne en haut */
+html {
+    overflow-x: hidden;
+}
+
