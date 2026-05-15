@@ -30,8 +30,17 @@
 
   <div class="background-overlay"></div>
 
-  <div id="header"></div>
-  <div id="nav-mobile"></div>
+  <!--
+    CORRECTION BUG LIGNE FANTÔME :
+    Le wrapper #site-header englobe header + nav-mobile dans un seul
+    conteneur sticky. Ainsi le nav-mobile dropdown fait partie du flux
+    sticky et n'est plus position:fixed indépendant, ce qui élimine
+    l'artefact de bordure GPU visible au scroll.
+  -->
+  <div id="site-header" class="site-header-wrapper">
+    <div id="header"></div>
+    <div id="nav-mobile"></div>
+  </div>
 
   <!-- Bouton mode nuit flottant -->
   <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode nuit" title="Mode nuit / jour">

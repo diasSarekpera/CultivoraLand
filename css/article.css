@@ -16,6 +16,8 @@
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    /* FIX : évite les débordements horizontaux et les artefacts de couche GPU */
+    overflow-x: hidden;
 }
 
 /* ============================================================
@@ -57,9 +59,17 @@ body {
     position: relative;
     overflow-x: hidden;
     background-image: url("/assets/bg-home.jpg");
-    background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;
+
+    /*
+      FIX LIGNE FANTÔME — CAUSE PRINCIPALE :
+      background-attachment:fixed force le navigateur à créer une couche
+      de composition GPU séparée pour le body. Combiné au backdrop-filter
+      du header sticky et du nav-mobile fixed, le moteur de rendu crée
+      une "hairline" d'1px visible au scroll entre les couches composites.
+      On passe à "scroll" pour supprimer cette couche parasitaire.
+      L'effet de fond est préservé grâce au .background-overlay fixe.
+    */
+    background-attachment: scroll;
     background-repeat: no-repeat;
 }
 
@@ -74,6 +84,8 @@ body {
     );
     z-index: 0;
     pointer-events: none;
+    /* FIX : force une couche composite propre pour l'overlay */
+    transform: translateZ(0);
 }
 
 [data-theme="dark"] .background-overlay {
@@ -86,12 +98,31 @@ body {
 }
 
 /* ============================================================
-   HEADER
+   WRAPPER STICKY HEADER + NAV MOBILE
+   FIX LIGNE FANTÔME — CAUSE SECONDAIRE :
+   Le nav-mobile était position:fixed indépendant avec border-bottom.
+   Quand max-height:0, le border de 1px restait visible comme une ligne
+   figée sur la page. En enveloppant header + nav-mobile dans un seul
+   conteneur sticky, le nav-mobile devient position:relative dans ce
+   contexte et suit naturellement le scroll sans laisser d'artefact.
 ============================================================ */
-.header {
+.site-header-wrapper {
     position: sticky;
     top: 0;
     z-index: 100;
+    /* FIX : une seule couche de composition pour tout le bloc nav */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Isole le stacking context pour éviter les fuites visuelles */
+    isolation: isolate;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -100,6 +131,12 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    /*
+      FIX : on retire position:sticky, transform et will-change d'ici.
+      Ces propriétés sont désormais portées par .site-header-wrapper,
+      ce qui évite la création de deux couches GPU imbriquées qui
+      génèrent la ligne fantôme.
+    */
 }
 
 [data-theme="dark"] .header {
@@ -215,12 +252,18 @@ body {
 
 /* ============================================================
    NAVIGATION MOBILE
+   FIX LIGNE FANTÔME — CAUSE PRINCIPALE RÉSOLUE ICI :
+   On passe de position:fixed à position:relative (dans le wrapper
+   sticky). Le dropdown s'étend naturellement sous le header sans
+   créer de couche GPU indépendante. La border-bottom ne flotte plus.
+   overflow:hidden sur le wrapper masque le contenu pendant l'animation
+   de max-height, exactement comme avant mais sans l'artefact.
 ============================================================ */
 .nav-mobile {
-    position: fixed;
-    top: 65px;
-    left: 0;
-    right: 0;
+    position: relative; /* ← CHANGEMENT CLÉ : était position:fixed */
+    left: auto;
+    right: auto;
+    /* Plus de top:65px nécessaire — suit le flux du wrapper */
     z-index: 99;
     display: flex;
     flex-direction: column;
@@ -231,17 +274,28 @@ body {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease, padding 0.25s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    /*
+      FIX : la border-bottom était visible comme une ligne figée quand
+      max-height:0 car l'élément était position:fixed. Maintenant qu'il
+      est dans le flux, on utilise box-shadow au lieu de border pour
+      éviter tout artefact résiduel d'1px.
+    */
+    box-shadow: none;
 }
 
 [data-theme="dark"] .nav-mobile {
     background: rgba(20, 15, 10, 0.97);
-    border-bottom-color: rgba(200, 170, 130, 0.10);
 }
 
 .nav-mobile.open {
     max-height: 320px;
     padding: 12px 0 20px;
+    /* Séparateur visible uniquement quand le menu est ouvert */
+    box-shadow: 0 4px 0 0 rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] .nav-mobile.open {
+    box-shadow: 0 4px 0 0 rgba(200, 170, 130, 0.08);
 }
 
 .nav-mobile-link {
@@ -513,7 +567,7 @@ body {
     background: linear-gradient(90deg, transparent, rgba(160, 130, 90, 0.25), transparent);
 }
 
-/* Variante douce (transitions moins marquées) */
+/* Variante douce */
 .reading-section-divider--soft {
     background: linear-gradient(90deg, transparent, rgba(46, 125, 79, 0.15), transparent);
     margin: 20px 0;
@@ -581,11 +635,8 @@ body {
 /* ============================================================
    3. RÉCIT — histoire et dialogues
 ============================================================ */
-.reading-card-story {
-    /* Pas de style propre — les enfants sont stylés individuellement */
-}
+.reading-card-story { }
 
-/* Paragraphes narratifs normaux dans l'histoire */
 .reading-card-story p {
     font-family: 'Lora', serif;
     font-size: 0.97rem;
@@ -596,7 +647,6 @@ body {
 
 [data-theme="dark"] .reading-card-story p { color: #d0c4b0; }
 
-/* Narration entre dialogues — italique discret */
 .reading-card-narration {
     font-family: 'Lora', serif !important;
     font-size: 0.93rem !important;
@@ -611,7 +661,6 @@ body {
     color: #b0a895 !important;
 }
 
-/* Répliques de personnages */
 .reading-card-dialogue {
     font-family: 'Lora', serif;
     font-size: 0.97rem;
@@ -630,7 +679,6 @@ body {
     border-left-color: rgba(160, 130, 90, 0.25);
 }
 
-/* Nom du personnage — en gras, c'est le signal visuel principal */
 .reading-card-speaker {
     font-family: 'Nunito Sans', sans-serif !important;
     font-size: 0.82rem !important;
@@ -645,13 +693,9 @@ body {
 }
 
 /* ============================================================
-   4. EXPLICATION — paragraphes avec termes en gras
-      Signal visuel : les mots-clés **terme** sont mis en exergue
-      via parseBold() dans le JS → <strong> stylé distinctement
+   4. EXPLICATION
 ============================================================ */
-.reading-card-explanation {
-    /* Conteneur — pas de fond propre, fond de la carte suffit */
-}
+.reading-card-explanation { }
 
 .reading-card-explanation__para {
     font-family: 'Lora', serif;
@@ -663,8 +707,6 @@ body {
 
 [data-theme="dark"] .reading-card-explanation__para { color: #d0c4b0; }
 
-/* ── Termes clés mis en gras dans l'explication ──
-   Signal visuel fort : couleur + léger fond pour les isoler visuellement */
 .reading-card-explanation__para strong {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 700;
@@ -682,8 +724,7 @@ body {
 }
 
 /* ============================================================
-   5. ANALOGIE — bloc encadré sans titre
-      L'encadrement est le signal visuel qui indique la comparaison
+   5. ANALOGIE
 ============================================================ */
 .reading-card-analogy {
     margin: 24px 0;
@@ -694,7 +735,6 @@ body {
     position: relative;
 }
 
-/* Petite icône décorative pour suggérer la comparaison */
 .reading-card-analogy::before {
     content: '≈';
     position: absolute;
@@ -938,37 +978,3 @@ body {
     }
     .theme-toggle__label { display: none; }
 }
-
-/* ============================================================
-   FIX BUG LIGNE FIXE (STICKY HEADER + BACKDROP FILTER)
-============================================================ */
-
-/* Stabilise le rendu du header sticky */
-.header {
-    transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backdrop-filter: blur(12px);
-}
-
-/* Empêche les artefacts liés au fond fixe */
-body {
-    background-attachment: scroll !important;
-}
-
-/* Évite les “hairlines” de rendu GPU */
-.header::before,
-.header::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    pointer-events: none;
-}
-
-/* Optionnel : masque la micro-ligne en haut */
-html {
-    overflow-x: hidden;
-}
-
