@@ -1,0 +1,570 @@
+/* ============================================================
+   CULTIVORA LAND – category notions / main.css
+   Page liste des notions "Curiosité & Comprendre le monde"
+   Cohérent avec article.css (polices, couleurs, dark mode)
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Nunito+Sans:wght@300;400;500;600&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+/* ============================================================
+   TRANSITIONS GLOBALES (mode jour ↔ nuit)
+============================================================ */
+body,
+.background-overlay,
+.cat-page-hero,
+.cat-page-hero__stats,
+.notions-theme__title,
+.notion-card,
+.notion-card__tag,
+.notion-card__time,
+.notion-card__title,
+.notion-card__desc,
+.notion-card__cta,
+.breadcrumb,
+.breadcrumb a {
+  transition:
+    background 0.38s ease,
+    background-color 0.38s ease,
+    color 0.38s ease,
+    border-color 0.38s ease,
+    box-shadow 0.38s ease;
+}
+
+/* ============================================================
+  BODY & FOND
+============================================================ */
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #1a1a1a;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-image: url("/assets/bg-home.jpg");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* ── Overlay jour ── */
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(10, 60, 20, 0.45) 0%,
+    rgba(5, 40, 15, 0.55) 50%,
+    rgba(0, 25, 10, 0.60) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Overlay nuit ── */
+[data-theme="dark"] .background-overlay {
+  background: linear-gradient(
+    160deg,
+    rgba(18, 14, 10, 0.88) 0%,
+    rgba(14, 10,  7, 0.92) 50%,
+    rgba(10,  7,  4, 0.95) 100%
+  );
+}
+
+/* ============================================================
+   CONTENEUR PRINCIPAL
+============================================================ */
+.cat-page-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.4rem 5rem;
+}
+
+/* ============================================================
+   FIL D'ARIANE
+============================================================ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 1.5rem 0 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover { color: #ffffff; }
+
+[data-theme="dark"] .breadcrumb,
+[data-theme="dark"] .breadcrumb a { color: rgba(200, 180, 155, 0.68); }
+[data-theme="dark"] .breadcrumb a:hover { color: #d4c4b0; }
+
+.breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.40);
+  font-size: 0.85rem;
+}
+
+[data-theme="dark"] .breadcrumb-sep { color: rgba(180, 155, 125, 0.35); }
+
+.breadcrumb-current {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .breadcrumb-current { color: rgba(220, 200, 175, 0.90); }
+
+/* ============================================================
+   HERO
+============================================================ */
+.cat-page-hero {
+  text-align: center;
+  padding: 3.5rem 0 3.8rem;
+  position: relative;
+}
+
+/* Cercle décoratif flou derrière le hero */
+.cat-page-hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Icône ── */
+.cat-page-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  margin-bottom: 1.3rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cat-page-hero__icon svg { width: 26px; height: 26px; }
+
+[data-theme="dark"] .cat-page-hero__icon {
+  color: rgba(210, 190, 165, 0.88);
+  background: rgba(200, 170, 130, 0.10);
+  border-color: rgba(200, 170, 130, 0.20);
+}
+
+/* ── Badge ── */
+.cat-page-hero__badge {
+  display: inline-block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 0.32rem 0.9rem;
+  border-radius: 2rem;
+  margin-bottom: 1.2rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .cat-page-hero__badge {
+  color: rgba(210, 190, 165, 0.82);
+  background: rgba(200, 170, 130, 0.10);
+  border-color: rgba(200, 170, 130, 0.22);
+}
+
+/* ── Titre ── */
+.cat-page-hero__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.40);
+}
+
+[data-theme="dark"] .cat-page-hero__title {
+  color: #e8ddd0;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.65);
+}
+
+/* ── Description ── */
+.cat-page-hero__desc {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.72;
+  max-width: 520px;
+  margin: 0 auto 2.2rem;
+}
+
+[data-theme="dark"] .cat-page-hero__desc { color: rgba(210, 190, 165, 0.78); }
+
+/* ── Stats ── */
+.cat-page-hero__stats {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 3rem;
+  padding: 0.7rem 1.8rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  gap: 0;
+}
+
+[data-theme="dark"] .cat-page-hero__stats {
+  background: rgba(200, 170, 130, 0.09);
+  border-color: rgba(200, 170, 130, 0.18);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.4rem;
+}
+
+.stat__number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+[data-theme="dark"] .stat__number { color: #e0d0bc; }
+
+.stat__label {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 0.2rem;
+}
+
+[data-theme="dark"] .stat__label { color: rgba(200, 180, 155, 0.60); }
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .stat-divider { background: rgba(200, 170, 130, 0.18); }
+
+/* ============================================================
+   SECTION NOTIONS
+============================================================ */
+.notions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3.8rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Titre de thème ── */
+.notions-theme__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.70);
+  margin-bottom: 1.6rem;
+}
+
+[data-theme="dark"] .notions-theme__title { color: rgba(200, 180, 155, 0.60); }
+
+.notions-theme__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .notions-theme__line { background: rgba(200, 170, 130, 0.15); }
+
+/* ── Grille ── */
+.notions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+}
+
+/* ============================================================
+   CARTE NOTION — lien cliquable complet
+============================================================ */
+.notion-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.55) inset;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  /* Transition déjà déclarée en haut, on ajoute transform */
+  transition:
+    background 0.30s ease,
+    border-color 0.30s ease,
+    box-shadow 0.30s ease,
+    transform 0.22s ease;
+}
+
+/* Accent gauche — apparaît au hover */
+.notion-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #2e7d4f, #5aab7c);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  border-radius: 3px 0 0 3px;
+}
+
+.notion-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.10),
+    0 1px 0 rgba(255, 255, 255, 0.55) inset;
+  border-color: rgba(255, 255, 255, 0.80);
+}
+
+.notion-card:hover::before { opacity: 1; }
+
+.notion-card:focus-visible {
+  outline: 2px solid rgba(46, 125, 79, 0.70);
+  outline-offset: 3px;
+}
+
+/* ── Mode nuit ── */
+[data-theme="dark"] .notion-card {
+  background: rgba(24, 17, 11, 0.82);
+  border-color: rgba(180, 150, 110, 0.16);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(180, 150, 110, 0.08) inset;
+}
+
+[data-theme="dark"] .notion-card::before {
+  background: linear-gradient(180deg, #8a7055, #b09070);
+}
+
+[data-theme="dark"] .notion-card:hover {
+  background: rgba(30, 22, 14, 0.90);
+  border-color: rgba(200, 170, 130, 0.28);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.60),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(180, 150, 110, 0.12) inset;
+}
+
+[data-theme="dark"] .notion-card:focus-visible {
+  outline-color: rgba(160, 130, 90, 0.65);
+}
+
+/* ── En-tête de carte : tag + temps ── */
+.notion-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+/* Tag catégorie */
+.notion-card__tag {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #0d5c2e;
+  background: rgba(46, 125, 79, 0.10);
+  border: 1px solid rgba(46, 125, 79, 0.22);
+  padding: 0.22rem 0.65rem;
+  border-radius: 2rem;
+}
+
+[data-theme="dark"] .notion-card__tag {
+  color: #c8a870;
+  background: rgba(180, 140, 80, 0.12);
+  border-color: rgba(180, 140, 80, 0.22);
+}
+
+/* Temps de lecture */
+.notion-card__time {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #3a4f3e;
+  opacity: 0.70;
+}
+
+.notion-card__time svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .notion-card__time { color: #a09080; opacity: 0.85; }
+
+/* ── Titre de la carte ── */
+.notion-card__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: #0d3318;
+  margin-bottom: 0.70rem;
+  transition: color 0.22s ease;
+}
+
+[data-theme="dark"] .notion-card__title { color: #ddd0bc; }
+
+.notion-card:hover .notion-card__title { color: #0d5c2e; }
+
+[data-theme="dark"] .notion-card:hover .notion-card__title { color: #e8d4a8; }
+
+/* ── Description ── */
+.notion-card__desc {
+  font-family: 'Lora', serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.72;
+  color: #2a3d2e;
+  flex: 1;
+  margin-bottom: 1.2rem;
+}
+
+[data-theme="dark"] .notion-card__desc { color: #b0a090; }
+
+/* ── CTA ── */
+.notion-card__cta {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #2e7d4f;
+  display: inline-flex;
+  align-items: center;
+  transition: gap 0.22s ease, color 0.22s ease, letter-spacing 0.22s ease;
+  align-self: flex-start;
+}
+
+[data-theme="dark"] .notion-card__cta { color: #a08060; }
+
+.notion-card:hover .notion-card__cta {
+  color: #0d5c2e;
+  letter-spacing: 0.08em;
+}
+
+[data-theme="dark"] .notion-card:hover .notion-card__cta { color: #c8a870; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+  .cat-page-main { padding: 0 1rem 3.5rem; }
+
+  .cat-page-hero { padding: 2.5rem 0 2.8rem; }
+
+  .cat-page-hero__title { font-size: 1.9rem; }
+
+  .cat-page-hero__stats { padding: 0.6rem 1rem; }
+
+  .stat { padding: 0 0.9rem; }
+
+  .stat__number { font-size: 1.2rem; }
+
+  .notions-section { gap: 2.8rem; }
+
+  .notions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .notion-card { padding: 1.3rem 1.4rem 1.2rem; }
+
+  .notion-card__title { font-size: 1.08rem; }
+}
+
+@media (max-width: 400px) {
+  .cat-page-hero__icon { width: 44px; height: 44px; }
+
+  .cat-page-hero__title { font-size: 1.65rem; }
+
+  .cat-page-hero__desc { font-size: 0.92rem; }
+
+  .stat-divider { display: none; }
+
+  .stat { padding: 0 0.6rem; }
+}
+
+/* ============================================================
+   ANIMATIONS D'ENTRÉE
+============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cat-page-hero__icon  { animation: fadeInUp 0.45s ease both; animation-delay: 0.02s; }
+.cat-page-hero__badge { animation: fadeInUp 0.45s ease both; animation-delay: 0.08s; }
+.cat-page-hero__title { animation: fadeInUp 0.45s ease both; animation-delay: 0.14s; }
+.cat-page-hero__desc  { animation: fadeInUp 0.45s ease both; animation-delay: 0.20s; }
+.cat-page-hero__stats { animation: fadeInUp 0.45s ease both; animation-delay: 0.26s; }
+
+.notion-card { animation: fadeInUp 0.45s ease both; }
+.notions-theme:nth-child(1) .notion-card { animation-delay: 0.32s; }
+.notions-theme:nth-child(2) .notion-card { animation-delay: 0.40s; }
+.notions-theme:nth-child(3) .notion-card { animation-delay: 0.48s; }

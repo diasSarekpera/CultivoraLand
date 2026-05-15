@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title id="pageTitle">Chargement… | Cultivora Land</title>
+
+  <meta name="description" content="Cultivora Land | Le Jardin du Savoir. Découvrez des notions claires, utiles et vivantes pour comprendre le monde, développer votre esprit et grandir chaque jour." />
+  <meta name="keywords" content="lecture utile, comprendre le monde, culture générale, esprit critique, notions fondamentales, curiosité" />
+  <meta name="author" content="Cultivora Land" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Cultivora Land | Le Jardin du Savoir" />
+  <meta property="og:description" content="Des textes explicatifs vivants pour développer votre compréhension du monde." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cultivora-land.onrender.com/01-assets/Images/img/logo.png" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <link rel="shortcut icon" href="/01-assets/favicon/favicon.ico" type="image/x-icon" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/article.css" />
+  <link rel="stylesheet" href="/" />
+</head>
+<body>
+
+  <div class="background-overlay"></div>
+
+  <div id="header"></div>
+  <div id="nav-mobile"></div>
+
+  <!-- Bouton mode nuit flottant -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode nuit" title="Mode nuit / jour">
+    <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <line x1="12" y1="2"  x2="12" y2="4"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="2"  y1="12" x2="4"  y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93"  y1="4.93"  x2="6.34"  y2="6.34"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="17.66" y1="17.66" x2="19.07" y2="19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.93"  y1="19.07" x2="6.34"  y2="17.66" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="17.66" y1="6.34"  x2="19.07" y2="4.93"  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__label" id="themeLabel">Mode nuit</span>
+  </button>
+
+  <main class="container">
+
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Fil d'Ariane"></nav>
+
+    <article class="reading-card" tabindex="0" aria-labelledby="articleTitle">
+      <h1 class="notion-title" id="articleTitle">Chargement…</h1>
+      <div class="reading-card-divider"></div>
+      <div class="reading-card-body" id="articleContent"></div>
+    </article>
+
+    <section class="related-notions" aria-label="Notions associées">
+      <h2 class="related-title">Notions associées</h2>
+      <div class="notion-tags" id="articleTags"></div>
+    </section>
+
+  </main>
+
+  <script src="/js/nav-mobile.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/js/article.js"></script>
+  <script src="/js/day-nigth.js"></script>
+
+</body>
+</html>

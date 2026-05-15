@@ -1,0 +1,363 @@
+/* ============================================================
+   CULTIVORA LAND – maintenance.css
+============================================================ */
+
+/* ============================================================
+   BASE BODY
+============================================================ */
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-image: url('/assets/bg-home.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Overlay ── */
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(10, 60, 20, 0.52) 0%,
+    rgba(5, 40, 15, 0.62) 50%,
+    rgba(0, 25, 10, 0.68) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   PARTICULES FLOTTANTES
+============================================================ */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(100, 200, 100, 0.18);
+  animation: float-up linear infinite;
+}
+
+.particle--1 { width: 6px;  height: 6px;  left: 12%;  bottom: -10px; animation-duration: 12s; animation-delay: 0s; }
+.particle--2 { width: 4px;  height: 4px;  left: 28%;  bottom: -10px; animation-duration: 16s; animation-delay: 3s; }
+.particle--3 { width: 8px;  height: 8px;  left: 55%;  bottom: -10px; animation-duration: 14s; animation-delay: 1.5s; }
+.particle--4 { width: 5px;  height: 5px;  left: 70%;  bottom: -10px; animation-duration: 18s; animation-delay: 5s; }
+.particle--5 { width: 3px;  height: 3px;  left: 82%;  bottom: -10px; animation-duration: 11s; animation-delay: 2s; }
+.particle--6 { width: 7px;  height: 7px;  left: 42%;  bottom: -10px; animation-duration: 15s; animation-delay: 7s; }
+
+@keyframes float-up {
+  0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================================
+   MAIN
+============================================================ */
+.maintenance-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 60px;
+}
+
+/* ============================================================
+   CARTE PRINCIPALE
+============================================================ */
+.maintenance-card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  padding: 44px 40px 36px;
+  text-align: center;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reflet haut de carte */
+.maintenance-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 24px 24px 0 0;
+}
+
+/* ── Illustration ── */
+.maintenance-illustration {
+  width: 220px;
+  height: 180px;
+  margin-bottom: 28px;
+}
+
+.maintenance-illustration svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Badge statut ── */
+.maintenance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(150, 230, 150, 0.90);
+  background: rgba(100, 200, 100, 0.12);
+  border: 1px solid rgba(100, 200, 100, 0.28);
+  border-radius: 50px;
+  padding: 6px 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.maintenance-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(120, 220, 120, 0.90);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+/* ── Titre ── */
+.maintenance-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.55rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.30);
+  margin-bottom: 14px;
+}
+
+/* ── Sous-titre ── */
+.maintenance-subtitle {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.72;
+  margin-bottom: 28px;
+}
+
+/* ── Barre de progression ── */
+.maintenance-progress {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.maintenance-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.maintenance-progress__label {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.04em;
+}
+
+.maintenance-progress__value {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(150, 230, 150, 0.90);
+}
+
+.maintenance-progress__track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.maintenance-progress__fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(80, 180, 80, 0.70) 0%,
+    rgba(140, 230, 120, 0.90) 100%
+  );
+  border-radius: 50px;
+  position: relative;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Shimmer sur la barre */
+.maintenance-progress__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { left: -40%; }
+  100% { left: 110%; }
+}
+
+/* ── Séparateur ── */
+.maintenance-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 28px;
+}
+
+/* ── Boutons ── */
+.maintenance-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 22px;
+}
+
+.maintenance-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 12px 24px;
+  text-decoration: none;
+  transition: background 0.24s ease, border-color 0.24s ease, transform 0.16s ease;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.maintenance-btn--primary {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+}
+
+.maintenance-btn--primary:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.50);
+  transform: translateY(-2px);
+}
+
+.maintenance-btn--secondary {
+  background: rgba(100, 200, 100, 0.12);
+  color: rgba(180, 240, 160, 0.95);
+  border: 1px solid rgba(100, 200, 100, 0.28);
+}
+
+.maintenance-btn--secondary:hover {
+  background: rgba(100, 200, 100, 0.22);
+  border-color: rgba(100, 200, 100, 0.50);
+  transform: translateY(-2px);
+}
+
+.maintenance-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Hint bas ── */
+.maintenance-hint {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.40);
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+/* ============================================================
+   RESPONSIVE — mobile
+============================================================ */
+@media (max-width: 560px) {
+  .maintenance-main {
+    padding: 24px 16px 48px;
+    align-items: flex-start;
+  }
+
+  .maintenance-card {
+    padding: 32px 22px 28px;
+    border-radius: 18px;
+  }
+
+  .maintenance-illustration {
+    width: 180px;
+    height: 148px;
+  }
+
+  .maintenance-title {
+    font-size: 1.45rem;
+  }
+
+  .maintenance-subtitle {
+    font-size: 0.90rem;
+  }
+
+  .maintenance-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .maintenance-btn {
+    width: 100%;
+    padding: 13px 20px;
+  }
+}

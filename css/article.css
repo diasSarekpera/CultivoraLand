@@ -1,0 +1,940 @@
+/* ============================================================
+   CULTIVORA LAND – article.css
+   Sans titres de section — signaux visuels : gras, dividers, espacement
+   Mode nuit chaud et doux (sans bleu)
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Nunito+Sans:wght@400;500;600&display=swap');
+
+/* ── Reset & base ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+/* ============================================================
+   TRANSITIONS GLOBALES
+============================================================ */
+body,
+.background-overlay,
+.header,
+.reading-card,
+.reading-card p,
+.reading-card-hook,
+.reading-card-questions li,
+.reading-card-narration,
+.reading-card-dialogue,
+.reading-card-explanation__para,
+.reading-card-analogy,
+.reading-card-conclusion,
+.reading-card-quote,
+.reading-card-signature,
+.reading-card-brand,
+.reading-section-divider,
+.tag,
+.theme-toggle {
+    transition:
+        background 0.40s ease,
+        background-color 0.40s ease,
+        color 0.40s ease,
+        border-color 0.40s ease,
+        box-shadow 0.40s ease;
+}
+
+/* ============================================================
+   BODY & FOND
+============================================================ */
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    color: #1a1a1a;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background-image: url("/assets/bg-home.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(10, 60, 20, 0.45) 0%,
+        rgba(5, 40, 15, 0.55) 50%,
+        rgba(0, 25, 10, 0.60) 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .background-overlay {
+    background: linear-gradient(
+        160deg,
+        rgba(18, 14, 10, 0.88) 0%,
+        rgba(14, 10, 7,  0.92) 50%,
+        rgba(10,  7,  4, 0.95) 100%
+    );
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: rgba(10, 55, 25, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+[data-theme="dark"] .header {
+    background: rgba(22, 16, 11, 0.88);
+    border-bottom-color: rgba(200, 170, 130, 0.10);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+}
+
+[data-theme="dark"] .logo-name { color: #e8ddd0; }
+
+.logo-tagline {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.02em;
+    display: none;
+}
+
+[data-theme="dark"] .logo-tagline { color: rgba(210, 190, 165, 0.60); }
+
+.nav-desktop {
+    display: none;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-link {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-link:hover { color: #ffffff; }
+
+[data-theme="dark"] .nav-link { color: rgba(210, 190, 165, 0.85); }
+[data-theme="dark"] .nav-link:hover { color: #e8ddd0; }
+
+.nav-cta {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+    padding: 6px 18px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.nav-cta:hover { background: rgba(255, 255, 255, 0.28); }
+
+[data-theme="dark"] .nav-cta {
+    color: #e8ddd0;
+    background: rgba(200, 170, 130, 0.12);
+    border-color: rgba(200, 170, 130, 0.28);
+}
+
+[data-theme="dark"] .nav-cta:hover { background: rgba(200, 170, 130, 0.22); }
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.menu-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+}
+
+[data-theme="dark"] .menu-icon span { background: #d4c4b0; }
+
+.menu-icon.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-icon.active span:nth-child(2) { opacity: 0; }
+.menu-icon.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ============================================================
+   NAVIGATION MOBILE
+============================================================ */
+.nav-mobile {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 55, 25, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+[data-theme="dark"] .nav-mobile {
+    background: rgba(20, 15, 10, 0.97);
+    border-bottom-color: rgba(200, 170, 130, 0.10);
+}
+
+.nav-mobile.open {
+    max-height: 320px;
+    padding: 12px 0 20px;
+}
+
+.nav-mobile-link {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    padding: 12px 24px;
+    transition: background 0.2s, color 0.2s;
+}
+
+[data-theme="dark"] .nav-mobile-link { color: rgba(210, 190, 165, 0.88); }
+
+.nav-mobile-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+[data-theme="dark"] .nav-mobile-link:hover {
+    background: rgba(200, 170, 130, 0.08);
+    color: #e8ddd0;
+}
+
+.nav-mobile-cta {
+    margin: 10px 24px 0;
+    padding: 10px 0;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 24px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .nav-mobile-cta {
+    border-color: rgba(200, 170, 130, 0.28);
+    color: #e8ddd0;
+}
+
+.nav-mobile-cta:hover { background: rgba(255, 255, 255, 0.15); }
+[data-theme="dark"] .nav-mobile-cta:hover { background: rgba(200, 170, 130, 0.12); }
+
+/* ============================================================
+   BOUTON SWITCH THÈME
+============================================================ */
+.theme-toggle {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.80rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(10, 55, 25, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50px;
+    padding: 9px 16px 9px 12px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+    transition:
+        background 0.30s ease,
+        border-color 0.30s ease,
+        color 0.30s ease,
+        transform 0.18s ease,
+        box-shadow 0.25s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(10, 55, 25, 0.95);
+    border-color: rgba(255, 255, 255, 0.50);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.36);
+}
+
+.theme-toggle:active { transform: translateY(0); }
+
+[data-theme="dark"] .theme-toggle {
+    background: rgba(28, 20, 13, 0.88);
+    border-color: rgba(200, 170, 130, 0.28);
+    color: rgba(210, 190, 165, 0.90);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.50);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: rgba(38, 28, 18, 0.96);
+    border-color: rgba(200, 170, 130, 0.48);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+}
+
+.theme-toggle__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.theme-toggle__icon svg { width: 18px; height: 18px; }
+
+.theme-toggle__icon--sun  { display: none; }
+.theme-toggle__icon--moon { display: flex; }
+
+[data-theme="dark"] .theme-toggle__icon--sun  { display: flex; }
+[data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+
+/* ============================================================
+   CONTENEUR PRINCIPAL
+============================================================ */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 20px 100px;
+}
+
+/* ============================================================
+   FIL D'ARIANE
+============================================================ */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 22px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.breadcrumb a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover { color: #ffffff; }
+
+[data-theme="dark"] .breadcrumb,
+[data-theme="dark"] .breadcrumb a { color: rgba(200, 180, 155, 0.72); }
+[data-theme="dark"] .breadcrumb a:hover { color: #d4c4b0; }
+
+.breadcrumb-sep {
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 0.85rem;
+}
+
+[data-theme="dark"] .breadcrumb-sep { color: rgba(180, 155, 125, 0.40); }
+
+.breadcrumb-current {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .breadcrumb-current { color: rgba(220, 200, 175, 0.92); }
+
+/* ============================================================
+   TITRE PRINCIPAL
+============================================================ */
+.notion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.55rem, 5vw, 2rem);
+    font-weight: 700;
+    color: #0d3318;
+    line-height: 1.30;
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .notion-title {
+    color: #e4d8c8;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.70);
+}
+
+/* ============================================================
+   CARTE DE LECTURE
+============================================================ */
+.reading-card {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 18px;
+    padding: 28px 24px;
+    margin-bottom: 40px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        0 1px 0 rgba(255, 255, 255, 0.6) inset;
+    outline: none;
+}
+
+.reading-card:focus-visible {
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        0 0 0 3px rgba(34, 120, 60, 0.50);
+}
+
+[data-theme="dark"] .reading-card {
+    background: rgba(24, 17, 11, 0.92);
+    border-color: rgba(180, 150, 110, 0.18);
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.65),
+        0 1px 0 rgba(180, 150, 110, 0.10) inset;
+}
+
+[data-theme="dark"] .reading-card:focus-visible {
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.60),
+        0 0 0 3px rgba(180, 150, 110, 0.35);
+}
+
+/* ── Paragraphes génériques dans la carte ── */
+.reading-card p {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.82;
+    color: #1c2a1e;
+    margin-bottom: 12px;
+}
+
+[data-theme="dark"] .reading-card p { color: #d0c4b0; }
+
+.reading-card p:last-child { margin-bottom: 0; }
+
+/* ── Gras générique dans la carte ── */
+.reading-card p strong,
+.reading-card strong {
+    font-weight: 700;
+    color: #0d3318;
+}
+
+[data-theme="dark"] .reading-card p strong,
+[data-theme="dark"] .reading-card strong { color: #e0cca8; }
+
+/* ── Divider principal ── */
+.reading-card-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #2e7d4f, transparent);
+    margin: 0 auto 22px;
+    border-radius: 2px;
+}
+
+[data-theme="dark"] .reading-card-divider {
+    background: linear-gradient(90deg, transparent, #8a7055, transparent);
+}
+
+/* ============================================================
+   SÉPARATEURS VISUELS ENTRE SECTIONS (remplace les titres h2)
+============================================================ */
+.reading-section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(46, 125, 79, 0.30), transparent);
+    margin: 28px 0;
+    border: none;
+}
+
+[data-theme="dark"] .reading-section-divider {
+    background: linear-gradient(90deg, transparent, rgba(160, 130, 90, 0.25), transparent);
+}
+
+/* Variante douce (transitions moins marquées) */
+.reading-section-divider--soft {
+    background: linear-gradient(90deg, transparent, rgba(46, 125, 79, 0.15), transparent);
+    margin: 20px 0;
+}
+
+[data-theme="dark"] .reading-section-divider--soft {
+    background: linear-gradient(90deg, transparent, rgba(160, 130, 90, 0.12), transparent);
+}
+
+/* ============================================================
+   1. ACCROCHE
+============================================================ */
+.reading-card-hook {
+    font-family: 'Lora', serif;
+    font-size: 1.04rem;
+    font-style: italic;
+    line-height: 1.82;
+    color: #1c2a1e;
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 3px solid rgba(46, 125, 79, 0.55);
+}
+
+[data-theme="dark"] .reading-card-hook {
+    color: #d8ccb8;
+    border-left-color: rgba(160, 130, 90, 0.55);
+}
+
+/* ============================================================
+   2. QUESTIONS D'OUVERTURE
+============================================================ */
+.reading-card-questions {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reading-card-questions li {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: #2a3d2e;
+    padding-left: 22px;
+    position: relative;
+}
+
+.reading-card-questions li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-style: normal;
+    font-weight: 400;
+    color: #2e7d4f;
+    opacity: 0.70;
+}
+
+[data-theme="dark"] .reading-card-questions li { color: #c8bcaa; }
+[data-theme="dark"] .reading-card-questions li::before { color: #a08060; }
+
+/* ============================================================
+   3. RÉCIT — histoire et dialogues
+============================================================ */
+.reading-card-story {
+    /* Pas de style propre — les enfants sont stylés individuellement */
+}
+
+/* Paragraphes narratifs normaux dans l'histoire */
+.reading-card-story p {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.82;
+    color: #1c2a1e;
+    margin-bottom: 12px;
+}
+
+[data-theme="dark"] .reading-card-story p { color: #d0c4b0; }
+
+/* Narration entre dialogues — italique discret */
+.reading-card-narration {
+    font-family: 'Lora', serif !important;
+    font-size: 0.93rem !important;
+    font-style: italic;
+    line-height: 1.70 !important;
+    color: #3a4f3e !important;
+    margin: 6px 0 10px !important;
+    opacity: 0.85;
+}
+
+[data-theme="dark"] .reading-card-narration {
+    color: #b0a895 !important;
+}
+
+/* Répliques de personnages */
+.reading-card-dialogue {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.78;
+    color: #1c2a1e;
+    margin-bottom: 10px;
+    padding: 10px 14px 10px 16px;
+    background: rgba(46, 125, 79, 0.05);
+    border-radius: 8px;
+    border-left: 2px solid rgba(46, 125, 79, 0.22);
+}
+
+[data-theme="dark"] .reading-card-dialogue {
+    color: #d0c4b0;
+    background: rgba(140, 110, 70, 0.09);
+    border-left-color: rgba(160, 130, 90, 0.25);
+}
+
+/* Nom du personnage — en gras, c'est le signal visuel principal */
+.reading-card-speaker {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #0d5c2e !important;
+}
+
+[data-theme="dark"] .reading-card-speaker {
+    color: #c8a870 !important;
+}
+
+/* ============================================================
+   4. EXPLICATION — paragraphes avec termes en gras
+      Signal visuel : les mots-clés **terme** sont mis en exergue
+      via parseBold() dans le JS → <strong> stylé distinctement
+============================================================ */
+.reading-card-explanation {
+    /* Conteneur — pas de fond propre, fond de la carte suffit */
+}
+
+.reading-card-explanation__para {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: #1c2a1e;
+    margin-bottom: 14px;
+}
+
+[data-theme="dark"] .reading-card-explanation__para { color: #d0c4b0; }
+
+/* ── Termes clés mis en gras dans l'explication ──
+   Signal visuel fort : couleur + léger fond pour les isoler visuellement */
+.reading-card-explanation__para strong {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.94rem;
+    color: #0d5c2e;
+    background: rgba(46, 125, 79, 0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-style: normal;
+}
+
+[data-theme="dark"] .reading-card-explanation__para strong {
+    color: #d4aa6a;
+    background: rgba(180, 140, 80, 0.12);
+}
+
+/* ============================================================
+   5. ANALOGIE — bloc encadré sans titre
+      L'encadrement est le signal visuel qui indique la comparaison
+============================================================ */
+.reading-card-analogy {
+    margin: 24px 0;
+    padding: 18px 20px;
+    background: rgba(46, 125, 79, 0.04);
+    border-radius: 12px;
+    border: 1px dashed rgba(46, 125, 79, 0.28);
+    position: relative;
+}
+
+/* Petite icône décorative pour suggérer la comparaison */
+.reading-card-analogy::before {
+    content: '≈';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 0 8px;
+    font-size: 1rem;
+    color: rgba(46, 125, 79, 0.45);
+    font-family: 'Lora', serif;
+    font-style: italic;
+}
+
+[data-theme="dark"] .reading-card-analogy {
+    background: rgba(140, 110, 70, 0.07);
+    border-color: rgba(160, 130, 90, 0.24);
+}
+
+[data-theme="dark"] .reading-card-analogy::before {
+    background: rgba(24, 17, 11, 0.92);
+    color: rgba(160, 130, 90, 0.55);
+}
+
+.reading-card-analogy p {
+    font-family: 'Lora', serif;
+    font-size: 0.96rem;
+    line-height: 1.82;
+    color: #1c2a1e;
+    margin-bottom: 10px;
+}
+
+.reading-card-analogy p:last-child { margin-bottom: 0; }
+
+[data-theme="dark"] .reading-card-analogy p { color: #c8bcaa; }
+
+/* ============================================================
+   6. CONCLUSION
+============================================================ */
+.reading-card-conclusion {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: #1c2a1e;
+    margin-bottom: 14px;
+}
+
+[data-theme="dark"] .reading-card-conclusion { color: #d0c4b0; }
+
+/* ============================================================
+   7. CITATION
+============================================================ */
+.reading-card-quote {
+    margin: 24px 0 18px;
+    padding: 16px 20px;
+    border-left: 3px solid #2e7d4f;
+    background: rgba(46, 125, 79, 0.05);
+    border-radius: 0 10px 10px 0;
+}
+
+[data-theme="dark"] .reading-card-quote {
+    border-left-color: #8a7055;
+    background: rgba(140, 110, 70, 0.08);
+}
+
+.reading-card-quote p {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    font-style: italic;
+    color: #1c2a1e;
+    margin-bottom: 6px;
+}
+
+[data-theme="dark"] .reading-card-quote p { color: #d0c4b0; }
+
+.reading-card-quote cite {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.80rem;
+    font-style: normal;
+    font-weight: 600;
+    color: #2e7d4f;
+    letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .reading-card-quote cite { color: #a08060; }
+
+/* ============================================================
+   8. MARQUE
+============================================================ */
+.reading-card-brand {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.60rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #2a3d2e;
+    opacity: 0.50;
+    text-align: center;
+    margin-top: 8px;
+}
+
+[data-theme="dark"] .reading-card-brand {
+    color: #a09080;
+    opacity: 0.55;
+}
+
+/* ============================================================
+   NOTIONS ASSOCIÉES
+============================================================ */
+.related-notions { text-align: center; }
+
+.related-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.related-title::before,
+.related-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.50);
+}
+
+.related-title::before { right: calc(100% + 10px); }
+.related-title::after  { left:  calc(100% + 10px); }
+
+[data-theme="dark"] .related-title { color: #ccc0ac; }
+
+[data-theme="dark"] .related-title::before,
+[data-theme="dark"] .related-title::after {
+    background: rgba(180, 150, 110, 0.35);
+}
+
+.notion-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tag {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 50px;
+    padding: 8px 20px;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.22s, border-color 0.22s, transform 0.18s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.tag:hover {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.60);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .tag {
+    color: rgba(200, 180, 150, 0.92);
+    background: rgba(40, 28, 16, 0.60);
+    border-color: rgba(160, 130, 95, 0.32);
+}
+
+[data-theme="dark"] .tag:hover {
+    background: rgba(55, 38, 20, 0.78);
+    border-color: rgba(180, 150, 110, 0.52);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   ANIMATION BOUTON THÈME
+============================================================ */
+@keyframes themeBounce {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(0.88); }
+    70%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.theme-toggle--bounce { animation: themeBounce 0.30s ease; }
+
+/* ============================================================
+   DESKTOP
+============================================================ */
+@media (min-width: 768px) {
+    .logo-tagline { display: inline; }
+    .nav-desktop  { display: flex; }
+    .menu-icon    { display: none; }
+    .nav-mobile   { display: none !important; }
+
+    .container { padding: 40px 32px 100px; }
+
+    .notion-title {
+        font-size: 2.2rem;
+        margin-bottom: 36px;
+    }
+
+    .reading-card { padding: 36px 40px; }
+
+    .reading-card p,
+    .reading-card-story p,
+    .reading-card-dialogue,
+    .reading-card-explanation__para,
+    .reading-card-conclusion {
+        font-size: 1.02rem;
+        line-height: 1.88;
+    }
+
+    .related-title::before,
+    .related-title::after { width: 60px; }
+
+    .theme-toggle { bottom: 36px; right: 32px; }
+}
+
+/* ============================================================
+   TRÈS PETITS ÉCRANS
+============================================================ */
+@media (max-width: 360px) {
+    .notion-title  { font-size: 1.35rem; }
+    .reading-card  { padding: 20px 16px; }
+    .reading-card p { font-size: 0.92rem; }
+    .theme-toggle  {
+        bottom: 16px;
+        right: 12px;
+        font-size: 0.75rem;
+        padding: 8px 12px 8px 10px;
+    }
+    .theme-toggle__label { display: none; }
+}

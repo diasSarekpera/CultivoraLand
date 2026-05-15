@@ -1,0 +1,513 @@
+/* ============================================================
+  CULTIVORA LAND — HERO · HEADER · NAVIGATION MOBILE
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ============================================================
+  RESET LOCAL
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================================
+   HERO — CONTENEUR RACINE
+============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+  FOND & OVERLAY
+============================================================ */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/assets/bg-home.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.02); /* évite les bords blancs au chargement */
+}
+ 
+/* Dégradé directionnel sur le fond */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(2, 14, 6, 0.60) 0%,
+      rgba(5, 22, 8, 0.38) 45%,
+      rgba(2, 12, 5, 0.65) 100%
+    );
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.hero-header {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 52px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* ============================================================
+   LOGO
+   ============================================================ */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   NAVIGATION DESKTOP
+   ============================================================ */
+.hero-header nav {
+  display: flex;
+  align-items: center;
+}
+
+.hero-header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-header nav a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 400;
+  letter-spacing: 0.15px;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.hero-header nav a:hover {
+  color: #ffffff;
+}
+
+.hero-header nav a:hover::after {
+  width: 100%;
+}
+
+.hero-header nav a.active {
+  color: #e8dfc0;
+  font-weight: 600;
+}
+
+/* ============================================================
+   BOUTON HAMBURGER (masqué sur desktop)
+   ============================================================ */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100; /* toujours au-dessus du menu mobile */
+}
+
+.menu-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-icon span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.32s ease, opacity 0.22s ease, width 0.22s ease;
+  transform-origin: center;
+}
+
+/* État ouvert : croix */
+.menu-icon.active span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.menu-icon.active span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ============================================================
+   NAVIGATION MOBILE
+   Slide depuis le haut, plein écran
+   ============================================================ */
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 18;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100dvh;
+
+  background: rgba(6, 36, 16, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  transform: translateY(-100%);
+  transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
+}
+
+.nav-mobile.open {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.nav-mobile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-mobile li {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+/* Animation décalée des items quand le menu s'ouvre */
+.nav-mobile.open li:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.08s; }
+.nav-mobile.open li:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.14s; }
+.nav-mobile.open li:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.20s; }
+.nav-mobile.open li:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.26s; }
+
+.nav-mobile a {
+  display: block;
+  padding: 16px 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  letter-spacing: -0.2px;
+}
+
+.nav-mobile a:hover {
+  color: #ffffff;
+  padding-left: 14px;
+}
+
+.nav-mobile a.active {
+  color: #e8dfc0;
+}
+
+/* ============================================================
+   CORPS DU HERO
+   ============================================================ */
+.hero-body {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+/* ============================================================
+   CONTAINER CENTRAL
+   ============================================================ */
+.hero-container {
+  max-width: 580px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ============================================================
+   TITRE
+   ============================================================ */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6.5vw, 84px);
+  font-weight: 700;
+  color: #f5f0e2;
+  line-height: 1.08;
+  letter-spacing: -0.8px;
+  margin: 0 0 16px;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ============================================================
+   SOUS-TITRE
+   ============================================================ */
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 2vw, 21px);
+  font-style: italic;
+  font-weight: 400;
+  color: #c9a84c;
+  letter-spacing: 0.6px;
+  margin: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Tirets décoratifs */
+.hero-subtitle::before,
+.hero-subtitle::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.65));
+}
+.hero-subtitle::after {
+  background: linear-gradient(to left, transparent, rgba(201, 168, 76, 0.65));
+}
+
+/* ============================================================
+   BLOC DESCRIPTION
+   ============================================================ */
+.hero-desc-wrapper {
+  background: rgba(5, 22, 8, 0.50);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 18px 36px;
+  margin-bottom: 32px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: 100%;
+}
+
+.description {
+  font-size: 15.5px;
+  font-weight: 300;
+  color: rgba(240, 235, 215, 0.90);
+  line-height: 1.75;
+  margin: 0;
+  letter-spacing: 0.1px;
+}
+
+/* ============================================================
+   BOUTON CTA
+   ============================================================ */
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: rgba(18, 62, 28, 0.80);
+  color: #e8dfc0;
+
+  border: 0.5px solid rgba(165, 212, 85, 0.28);
+  border-radius: 50px;
+
+  padding: 14px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  text-decoration: none;
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-btn:hover {
+  background: rgba(26, 82, 40, 0.95);
+  border-color: rgba(185, 238, 105, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+}
+
+.hero-btn:active {
+  transform: scale(0.97) translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE — TABLETTE
+   ============================================================ */
+@media (max-width: 960px) {
+  .hero-header {
+    padding: 18px 32px;
+  }
+
+  .hero-header nav ul {
+    gap: 26px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Header */
+  .hero-header {
+    padding: 16px 18px;
+  }
+
+  .logo img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  /* Masquer la nav desktop, afficher le burger */
+  .hero-header nav {
+    display: none;
+  }
+
+  .menu-icon {
+    display: flex;
+  }
+
+  /* Hero body */
+  .hero-body {
+    padding: 36px 18px 48px;
+  }
+
+  .hero-container {
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 11vw, 64px);
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(15px, 4vw, 19px);
+    margin-bottom: 24px;
+  }
+
+  .hero-desc-wrapper {
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    padding: 15px 22px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — TRÈS PETIT (≤ 420px)
+   ============================================================ */
+@media (max-width: 420px) {
+  .hero-header {
+    padding: 14px 14px;
+  }
+
+  .logo-text {
+    font-size: 15px;
+  }
+
+  .hero-title {
+    font-size: clamp(38px, 12.5vw, 52px);
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+  }
+
+  .hero-desc-wrapper {
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  .hero-btn {
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+
+  .nav-mobile a {
+    font-size: 22px;
+  }
+}

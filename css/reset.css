@@ -1,0 +1,126 @@
+/* ================================
+   RESET CSS MODERNE (reset.css)
+   Auteur : version propre et moderne
+   ================================ */
+
+/* 1) Supprime marges et paddings par défaut */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2) Améliore le comportement des polices */
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+/* 3) Empêche les bugs de largeur */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+
+/* 4) Images et médias responsives */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 5) Supprime les styles par défaut des liens */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 6) Supprime les styles par défaut des listes */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 7) Les titres gardent un style propre */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* 8) Formulaires : uniformiser les inputs */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+}
+
+/* 9) Boutons cliquables */
+button {
+  cursor: pointer;
+}
+
+/* 10) Textarea : empêcher le resize bizarre */
+textarea {
+  resize: vertical;
+}
+
+/* 11) Tables propres */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 12) Empêche les débordements horizontaux */
+body {
+  overflow-x: hidden;
+}
+
+/* 13) Meilleur rendu pour les textes longs */
+p {
+  overflow-wrap: break-word;
+}
+
+/* 14) Supprime les styles automatiques sur certains navigateurs */
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+/* 15) Supprime les bordures bleues sur certains éléments focus */
+:focus {
+  outline: none;
+}
+
+/* 16) Sélection du texte (optionnel, tu peux modifier la couleur) */
+::selection {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+/* ── Reset ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-x: hidden;
+}
